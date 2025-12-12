@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('technical_specs', function (Blueprint $table) {
             $table->id();
-            // figure out what to store 
+            $table->string('spec_name');
+            $table->text('spec_value');
             $table->timestamps();
         });
     }

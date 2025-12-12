@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('team_profiles', function (Blueprint $table) {
             $table->id();
-            $table->id();
             $table->string('name');
             $table->string('role');
             $table->string('photo')->nullable();

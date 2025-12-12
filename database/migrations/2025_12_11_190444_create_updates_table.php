@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('image')->nullable();
+            $table->string('type')->default('update');
+            $table->string('event_name')->nullable();
+            $table->string('position')->nullable();
             $table->timestamps();
         });
     }
