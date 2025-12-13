@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Sponsor;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+
+class SponsorController extends Controller
+{
+    public function create()
+    {
+        return view('admin.sponsors.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'website' => 'nullable|url',
+            'logo' => 'required|image|max:2048',
+        ]);
+
+        $path = $request->file('logo')->store('sponsors', 'public');
+
+        Sponsor::create([
+            'website' => $request->website,
+            'logo' => $path,
+        ]);
+
+        return back()->with('success', 'Sponsor logo added.');
+    }
+
+    public function edit($id)
+    {
+        $sponsor = Sponsor::findOrFail($id);
+        return view('admin.sponsors.edit', compact('sponsor'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'website' => 'nullable|url',
+            'logo' => 'nullable|image|max:2048',
+        ]);
+
+        $sponsor = Sponsor::findOrFail($id);
+
+        $data = ['website' => $request->website];
+
+        if ($request->hasFile('logo')) {
+            if ($sponsor->logo) Storage::disk('public')->delete($sponsor->logo);
+            $data['logo'] = $request->file('logo')->store('sponsors', 'public');
+        }
+
+        $sponsor->update($data);
+
+        return back()->with('success', 'Sponsor updated.');
+    }
+
+    public function destroy($id)
+    {
+        $sponsor = Sponsor::findOrFail($id);
+        if ($sponsor->logo) Storage::disk('public')->delete($sponsor->logo);
+        $sponsor->delete();
+
+        return back()->with('success', 'Sponsor deleted.');
+    }
+}
