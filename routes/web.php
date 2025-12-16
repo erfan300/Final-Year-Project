@@ -8,7 +8,8 @@ use App\Http\Controllers\{
     MediaController,
     TechnicalSpecController,
     UpdateController,
-    TeamProfileController
+    TeamProfileController,
+    PublicController
 };
 
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])
@@ -60,3 +61,19 @@ Route::middleware('admin.auth')->group(function () {
     Route::put('/team/{id}', [TeamProfileController::class, 'update'])->name('team.update');
     Route::delete('/team/{id}', [TeamProfileController::class, 'destroy'])->name('team.destroy');
 });
+
+Route::get('/', [PublicController::class, 'home'])->name('home');
+
+Route::get('/recruitment', [PublicController::class, 'recruitment'])->name('recruitment');
+
+Route::get('/faq', [PublicController::class, 'faq'])->name('faq');
+
+Route::get('/sponsors', [PublicController::class, 'sponsors'])->name('sponsors');
+
+Route::get('/updates', [PublicController::class, 'updates'])->name('updates');
+
+Route::get('/team', [PublicController::class, 'team'])->name('team');
+
+Route::get('/technical-specs', [PublicController::class, 'specs'])->name('specs');
+
+Route::get('/media', [PublicController::class, 'media'])->name('media');
