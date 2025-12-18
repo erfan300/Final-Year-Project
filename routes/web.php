@@ -9,7 +9,10 @@ use App\Http\Controllers\{
     TechnicalSpecController,
     UpdateController,
     TeamProfileController,
-    PublicController
+    PublicController,
+    RecruitmentSubmissionController,
+    SponsorshipSubmissionController,
+    GeneralEnquiryController
 };
 
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])
@@ -77,3 +80,12 @@ Route::get('/team', [PublicController::class, 'team'])->name('team');
 Route::get('/technical-specs', [PublicController::class, 'specs'])->name('specs');
 
 Route::get('/media', [PublicController::class, 'media'])->name('media');
+
+Route::post('/recruitment/submit', [RecruitmentSubmissionController::class, 'store'])
+    ->name('recruitment.submit');
+
+Route::post('/sponsorship/submit', [SponsorshipSubmissionController::class, 'store'])
+    ->name('sponsorship.submit');
+
+Route::post('/contact/submit', [GeneralEnquiryController::class, 'store'])
+    ->name('contact.submit');
