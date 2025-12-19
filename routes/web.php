@@ -89,3 +89,7 @@ Route::post('/sponsorship/submit', [SponsorshipSubmissionController::class, 'sto
 
 Route::post('/contact/submit', [GeneralEnquiryController::class, 'store'])
     ->name('contact.submit');
+
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
