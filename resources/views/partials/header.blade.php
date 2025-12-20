@@ -1,6 +1,6 @@
 <header>
 
-  <div style="display:flex; justify-content:space-between; align-items:center;">
+  <div class="top-header">
     
     <div>
       <a href="{{ route('home') }}">
@@ -12,18 +12,17 @@
       @if(session()->has('admin_id'))
         <form method="POST" action="{{ route('admin.logout') }}">
           @csrf
-          <button type="submit">Logout</button>
+          <button type="submit" class="admin-login-btn">Logout</button>
         </form>
-      @else
-        <a href="{{ route('admin.login') }}">Admin Login</a>
+      @elseif(!request()->routeIs('admin.login'))
+        <a href="{{ route('admin.login') }}" class="admin-login-btn">Admin Login</a>
       @endif
     </div>
 
   </div>
 
-  {{-- Navigation bar --}}
   <nav>
-    <ul style="display:flex; gap:20px; list-style:none; padding:0;">
+    <ul class="ul-header">
       
       @php
         $current = Route::currentRouteName();
@@ -56,11 +55,6 @@
       @if($current !== 'media')
         <li><a href="{{ route('media') }}">Media</a></li>
       @endif
-
-      @if($current !== 'faq')
-        <li><a href="{{ route('faq') }}">FAQ</a></li>
-      @endif
-
     </ul>
   </nav>
 

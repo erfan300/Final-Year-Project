@@ -2,7 +2,9 @@
 @section('title','Team')
 @section('content')
   @if(session()->has('admin_id'))
-    <a href="{{ route('team.create') }}">Add Member</a>
+    <div class="admin-controls">
+      <a href="{{ route('team.create') }}">Add Member</a>
+    </div>
   @endif
 
   @foreach($team as $member)

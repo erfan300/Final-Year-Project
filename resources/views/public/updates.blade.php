@@ -2,7 +2,9 @@
 @section('title','Updates')
 @section('content')
   @if(session()->has('admin_id'))
-    <a href="{{ route('updates.create') }}">Add Update</a>
+    <div class="admin-controls">
+      <a href="{{ route('updates.create') }}">Add Update</a>
+    </div>
   @endif
 
   @foreach($updates as $u)

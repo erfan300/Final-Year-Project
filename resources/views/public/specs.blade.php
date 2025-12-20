@@ -2,7 +2,9 @@
 @section('title','Technical Specs')
 @section('content')
   @if(session()->has('admin_id'))
-    <a href="{{ route('specs.create') }}">Add Spec</a>
+    <div class="admin-controls">
+      <a href="{{ route('specs.create') }}">Add Spec</a>
+    </div>
   @endif
 
   <ul>

@@ -4,6 +4,8 @@
   <p>{{ $intro->content ?? '' }}</p>
 
   @if(session()->has('admin_id'))
-    <a href="{{ route('content.edit', $intro->id) }}">Edit</a>
+    <div class="admin-controls">
+      <a href="{{ route('content.edit', $intro->id) }}">Edit</a>
+    </div>
   @endif
 @endsection
