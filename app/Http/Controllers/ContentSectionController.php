@@ -9,8 +9,12 @@ class ContentSectionController extends Controller
 {
     public function edit($id)
     {
-        $section = ContentSection::findOrFail($id);
-        return view('admin.content.edit', compact('section'));
+        $content = ContentSection::findOrFail($id);
+
+        return view('admin.content.form', [
+            'content' => $content,
+            'section_key' => $content->section_key,
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -24,12 +28,12 @@ class ContentSectionController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->back()->with('success', 'Content updated successfully.');
+        return redirect()->route('home')->with('success', 'Content updated successfully.');
     }
 
     public function create(Request $request)
     {
-        return view('admin.content.create', [
+        return view('admin.content.form', [
             'section_key' => $request->get('section'),
             'content' => null
         ]);
