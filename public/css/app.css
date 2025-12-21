@@ -101,6 +101,14 @@ header > div {
   align-items: center;
 }
 
+.header-admin form {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
 .admin-login-btn {
   border: 2px solid #8500a3;
   color: #ffffff;

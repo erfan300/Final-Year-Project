@@ -5,7 +5,13 @@
 
   @if(session()->has('admin_id'))
     <div class="admin-controls">
-      <a href="{{ route('content.edit', $intro->id) }}">Edit</a>
+      @if($intro)
+        <a href="{{ route('content.edit', $intro->id) }}">Edit</a>
+      @else
+        <a href="{{ route('content.create', ['section' => 'homepage_intro']) }}">
+          Add Content
+        </a>
+      @endif
     </div>
   @endif
 @endsection

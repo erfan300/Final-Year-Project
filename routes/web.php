@@ -28,6 +28,9 @@ Route::middleware('admin.auth')->group(function () {
     // FAQ + other single content sections (edit-only)
     Route::get('/content/{id}/edit', [ContentSectionController::class, 'edit'])->name('content.edit');
     Route::put('/content/{id}', [ContentSectionController::class, 'update'])->name('content.update');
+    Route::get('/admin/content/create', [ContentSectionController::class, 'create'])->name('content.create');
+    Route::post('/admin/content/store', [ContentSectionController::class, 'store'])->name('content.store');
+
 
     // Sponsors (logo + website)
     Route::get('/sponsors/create', [SponsorController::class, 'create'])->name('sponsors.create');

@@ -8,7 +8,7 @@
       </a>
     </div>
 
-    <div>
+    <div class="header-admin">
       @if(session()->has('admin_id'))
         <form method="POST" action="{{ route('admin.logout') }}">
           @csrf
