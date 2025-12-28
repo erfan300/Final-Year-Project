@@ -21,7 +21,7 @@ class UpdateController extends Controller
         ]);
 
         Update::create($request->all());
-        return redirect()->back()->with('success', 'Added');
+        return redirect()->route('updates')->with('success', 'Update added successfully');
     }
 
     public function edit($id)
@@ -38,12 +38,12 @@ class UpdateController extends Controller
         ]);
 
         Update::findOrFail($id)->update($request->all());
-        return back()->with('success', 'Updated');
+        return redirect()->route('updates')->with('success', 'Updated successfully');
     }
 
     public function destroy($id)
     {
         Update::findOrFail($id)->delete();
-        return back()->with('success', 'Deleted');
+        return redirect()->route('updates')->with('success', 'Deleted successfully');
     }
 }

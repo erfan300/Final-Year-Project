@@ -1,17 +1,24 @@
-<img src="{{ asset('storage/'.$sponsor->logo) }}" width="120">
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('sponsors.update', $sponsor->id) }}" enctype="multipart/form-data">
-  @csrf
-  @method('PUT')
-  <input type="url" name="website" value="{{ $sponsor->website }}" placeholder="https://company.com">
-  <input type="file" name="logo">
-  <button>Save</button>
-</form>
+@section('title', 'Edit Sponsors')
 
-<form method="POST" action="{{ route('sponsors.destroy', $sponsor->id) }}">
-  @csrf
-  @method('DELETE')
-  <button>Delete</button>
-</form>
+@section('content')
+  <h1>Edit Sponsors</h1>
+  <img src="{{ asset('storage/'.$sponsor->logo) }}" width="120">
 
-@if(session('success')) <p>{{ session('success') }}</p> @endif
+  <form method="POST" action="{{ route('sponsors.update', $sponsor->id) }}" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+    <input type="url" name="website" value="{{ $sponsor->website }}" placeholder="https://company.com">
+    <input type="file" name="logo">
+    <button>Save</button>
+  </form>
+
+  <form method="POST" action="{{ route('sponsors.destroy', $sponsor->id) }}">
+    @csrf
+    @method('DELETE')
+    <button>Delete</button>
+  </form>
+
+  @if(session('success')) <p>{{ session('success') }}</p> @endif
+@endsection

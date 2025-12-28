@@ -1,18 +1,25 @@
-<form method="POST" action="{{ route('updates.store') }}">
-  @csrf
-  <input name="title" placeholder="Title" required>
-  <textarea name="body" placeholder="Body" required></textarea>
+@extends('layouts.app')
 
-  <select name="type" required>
-    <option value="update">Update</option>
-    <option value="build">Build</option>
-    <option value="competition">Competition</option>
-  </select>
+@section('title', 'Add Update')
 
-  <input name="event_name" placeholder="Event name (optional)">
-  <input name="position" placeholder="Position/result (optional)">
+@section('content')
+  <h1>Add Update</h1>
+  <form method="POST" action="{{ route('updates.store') }}">
+    @csrf
+    <input name="title" placeholder="Title" required>
+    <textarea name="body" placeholder="Body" required></textarea>
 
-  <button>Add</button>
-</form>
+    <select name="type" required>
+      <option value="update">Update</option>
+      <option value="build">Build</option>
+      <option value="competition">Competition</option>
+    </select>
 
-@if(session('success')) <p>{{ session('success') }}</p> @endif
+    <input name="event_name" placeholder="Event name (optional)">
+    <input name="position" placeholder="Position/result (optional)">
+
+    <button>Add</button>
+  </form>
+
+  @if(session('success')) <p>{{ session('success') }}</p> @endif
+@endsection
