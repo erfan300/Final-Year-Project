@@ -17,7 +17,4 @@
     <textarea name="message" placeholder="Message"></textarea>
     <button type="submit">Send</button>
   </form>
-
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
-  @foreach($errors->all() as $error) <p>{{ $error }}</p> @endforeach
 @endsection

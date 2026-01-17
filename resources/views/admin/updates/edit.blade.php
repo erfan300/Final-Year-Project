@@ -3,7 +3,7 @@
 @section('title', 'Edit Update')
 
 @section('content')
-  <h1>Edit Content</h1>
+  <h1>Edit Update</h1>
   <form method="POST" action="{{ route('updates.update', $update->id) }}">
     @csrf
     @method('PUT')
@@ -28,5 +28,4 @@
     <button>Delete</button>
   </form>
 
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
 @endsection

@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Join the Team</h1>
     <form method="POST" action="{{ route('recruitment.submit') }}">
     <h2>Recruitment Form</h2>
         @csrf
@@ -11,6 +10,4 @@
         <textarea name="message" placeholder="Additional Message"></textarea>
         <button type="submit">Apply</button>
     </form>
-    @if(session('success')) <p>{{ session('success') }}</p> @endif
-    @foreach($errors->all() as $error) <p>{{ $error }}</p> @endforeach
 @endsection

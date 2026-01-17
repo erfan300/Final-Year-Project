@@ -7,13 +7,27 @@
     </div>
   @endif
 
-  @foreach($sponsors as $sponsor)
-    <div class="sponsor-logos">
-      <a href="{{ $sponsor->website }}" target="_blank">
-        <img src="{{ asset('storage/'.$sponsor->logo) }}" width="120">
-      </a>
-    </div>
-  @endforeach
+  <div class="sponsor-logos">
+    @foreach($sponsors as $sponsor)
+      <div class="sponsor-card">
+        <a href="{{ $sponsor->website }}" target="_blank">
+          <img src="{{ asset('storage/'.$sponsor->logo) }}" alt="Sponsor logo">
+        </a>
+
+        @if(session()->has('admin_id'))
+          <div class="sponsor-actions">
+            <a href="{{ route('sponsors.edit', $sponsor->id) }}" class="admin-login-btn">Edit</a>
+
+            <form method="POST" action="{{ route('sponsors.destroy', $sponsor->id) }}">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="admin-login-btn">Delete</button>
+            </form>
+          </div>
+        @endif
+      </div>
+    @endforeach
+  </div>
 
   <form method="POST" action="{{ route('sponsorship.submit') }}">
     <h2>Sponsorship Enquiry</h2>
@@ -25,7 +39,4 @@
     <textarea name="message" placeholder="Additional Message"></textarea>
     <button type="submit">Submit Enquiry</button>
   </form>
-
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
-  @foreach($errors->all() as $error) <p>{{ $error }}</p> @endforeach
 @endsection

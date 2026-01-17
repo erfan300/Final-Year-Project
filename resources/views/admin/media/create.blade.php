@@ -13,6 +13,4 @@
     <button>Add media</button>
   </form>
 
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
-  @error('file') <p>{{ $message }}</p> @enderror
 @endsection

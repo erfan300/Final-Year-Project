@@ -17,7 +17,7 @@ class SponsorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'website' => 'nullable|url',
+            'website' => 'required|url',
             'logo' => 'required|image|max:2048',
         ]);
 
@@ -28,7 +28,8 @@ class SponsorController extends Controller
             'logo' => $path,
         ]);
 
-        return back()->with('success', 'Sponsor logo added.');
+        return redirect()->route('sponsors')->with('success', 'Sponsor added successfully.');
+
     }
 
     public function edit($id)
@@ -40,7 +41,7 @@ class SponsorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'website' => 'nullable|url',
+            'website' => 'required|url',
             'logo' => 'nullable|image|max:2048',
         ]);
 
@@ -55,7 +56,7 @@ class SponsorController extends Controller
 
         $sponsor->update($data);
 
-        return back()->with('success', 'Sponsor updated.');
+        return redirect()->route('sponsors')->with('success', 'Sponsor updated successfully.');
     }
 
     public function destroy($id)

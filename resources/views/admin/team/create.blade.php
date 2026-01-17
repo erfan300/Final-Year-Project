@@ -12,6 +12,4 @@
     <textarea name="testimonial" placeholder="Testimonial"></textarea>
     <button>Add profile</button>
   </form>
-
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
 @endsection

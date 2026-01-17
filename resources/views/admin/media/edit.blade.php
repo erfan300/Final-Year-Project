@@ -22,5 +22,4 @@
     <button>Delete</button>
   </form>
 
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
 @endsection

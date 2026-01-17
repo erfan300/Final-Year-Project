@@ -10,6 +10,4 @@
     <textarea name="spec_value" placeholder="Spec value" required></textarea>
     <button>Add spec</button>
   </form>
-
-  @if(session('success')) <p>{{ session('success') }}</p> @endif
 @endsection
