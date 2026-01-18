@@ -2,7 +2,7 @@
 
   @if(Route::currentRouteName() !== 'faq')
     <p>
-      <a href="{{ route('faq') }}">Frequently Asked Questions</a>
+      <a href="{{ route('faq') }}" >Frequently Asked Questions</a>
     </p>
   @endif
 

@@ -21,6 +21,6 @@ class RecruitmentSubmissionController extends Controller
             'name','email','course','year_of_study','message'
         ]));
 
-        return back()->with('success', 'Your application has been submitted.');
+        return redirect()->route('home')->with('success', 'Your application has been submitted.');
     }
 }
