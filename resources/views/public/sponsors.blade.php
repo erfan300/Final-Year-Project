@@ -13,17 +13,14 @@
   </section>
 
   <div class="section">
-    @if(session()->has('admin_id'))
-      <div class="admin-controls">
-        <a href="{{ route('sponsors.create') }}" class="btn btn-small">Add Sponsor</a>
-      </div>
-    @endif
-
     <div class="sponsor-logos">
       @foreach($sponsors as $sponsor)
         <div class="sponsor-card">
-          <a href="{{ $sponsor->website }}" target="_blank">
-            <img src="{{ asset('storage/'.$sponsor->logo) }}" alt="Sponsor logo">
+
+          <a href="{{ $sponsor->website }}" target="_blank" class="sponsor-link">
+            <div class="sponsor-logo">
+              <img src="{{ asset('storage/'.$sponsor->logo) }}" alt="Sponsor logo">
+            </div>
           </a>
 
           @if(session()->has('admin_id'))
@@ -40,6 +37,11 @@
         </div>
       @endforeach
     </div>
+    @if(session()->has('admin_id'))
+      <div class="admin-controls">
+        <a href="{{ route('sponsors.create') }}" class="btn btn-small">Add Sponsor</a>
+      </div>
+    @endif
   </div>
 
   <div class="section">

@@ -17,7 +17,7 @@ class SponsorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'website' => 'required|url',
+            'website' => 'required|url|max:255',
             'logo' => 'required|image|max:2048',
         ]);
 
@@ -41,7 +41,7 @@ class SponsorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'website' => 'required|url',
+            'website' => 'required|url|max:255',
             'logo' => 'nullable|image|max:2048',
         ]);
 
@@ -65,6 +65,6 @@ class SponsorController extends Controller
         if ($sponsor->logo) Storage::disk('public')->delete($sponsor->logo);
         $sponsor->delete();
 
-        return back()->with('success', 'Sponsor deleted.');
+        return  redirect()->route('sponsors')->with('success', 'Sponsor deleted.');
     }
 }

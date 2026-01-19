@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContentSection;
 use Illuminate\Http\Request;
+use App\Rules\NoProfanity;
 
 class ContentSectionController extends Controller
 {
@@ -20,7 +21,7 @@ class ContentSectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'content' => 'required|string',
+            'content' => ['required', 'string', new NoProfanity],
         ]);
 
         $section = ContentSection::findOrFail($id);
@@ -42,15 +43,15 @@ class ContentSectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'section_key' => 'required|string',
-            'content' => 'required|string',
+            'section_key' => ['required', 'string'],
+            'content'     => ['required', 'string', 'max:2000' ,new NoProfanity],
         ]);
 
         ContentSection::create([
             'section_key' => $request->section_key,
-            'content' => $request->content,
+            'content'     => $request->content,
         ]);
 
-        return redirect()->route('home')->with('success', 'Content created');
+        return redirect()->route('home')->with('success', 'Content created successfully.');
     }
 }
