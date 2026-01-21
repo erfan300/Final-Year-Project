@@ -12,7 +12,7 @@ class RecruitmentSubmissionController extends Controller
     {
         $request->validate([
             'name'          => ['required', 'string', 'max:255', new NoProfanity],
-            'email'         => ['required', 'email', 'max:255'],
+            'email'         => ['required', 'email', 'max:255', new NoProfanity],
             'course'        => ['required', 'string', 'max:255', new NoProfanity],
             'year_of_study' => ['required', 'in:1,2,3,masters,phd'],
             'message'       => ['nullable', 'string', 'max:2000', new NoProfanity],

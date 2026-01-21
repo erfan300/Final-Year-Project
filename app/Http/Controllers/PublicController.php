@@ -20,12 +20,6 @@ class PublicController extends Controller
     return view('public.recruitment', compact('content'));
   }
 
-  public function faq()
-  {
-    $faq = ContentSection::where('section_key','faq')->first();
-    return view('public.faq', compact('faq'));
-  }
-
   public function sponsors()
   {
     $sponsors = Sponsor::all();

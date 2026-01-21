@@ -108,14 +108,21 @@ header > div {
 }
 
 .admin-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 1rem;
+  min-height: 38px;   
+  line-height: 1;       
+  font: inherit;     
+  font-weight: 700;
   border: 2px solid #8500a3;
-  color: #ffffff;
-  background-color: #8500a3;
-  font-weight: bold;
-  padding: 0.4rem 0.9rem;
-  border-radius: 4px;
-  text-decoration: none;
+  background: #8500a3;
+  color: #fff;
+  border-radius: 6px;
   cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .admin-login-btn:hover {
@@ -479,4 +486,67 @@ button:hover {
 
 .spec-item:last-child {
   border-bottom: none;
+}
+
+.char-counter {
+  display: block;
+  margin-top: -0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: #fff;
+}
+
+.faq-item[open] {
+  box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+
+.faq-q {
+  cursor: pointer;
+  font-weight: 700;
+  color: #8500a3;
+  list-style: none;
+}
+
+.faq-q::-webkit-details-marker {
+  display: none;
+}
+
+.faq-a {
+  margin-top: 0.6rem;
+}
+
+.faq-actions {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  margin-top: .75rem;
+}
+
+.faq-actions form {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: unset;
+  margin: 0;
+}
+
+.faq-actions form {
+  display: inline;
+}
+
+.faq-actions .admin-login-btn {
+  min-width: 80px;
 }

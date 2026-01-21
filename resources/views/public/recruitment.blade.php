@@ -14,9 +14,9 @@
     <form method="POST" action="{{ route('recruitment.submit') }}">
       <h2>Recruitment Form</h2>
       @csrf
-      <input name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input name="course" placeholder="Course Title" required>
+      <input name="name" placeholder="Full Name" maxlength="255" required>
+      <input type="email" name="email" placeholder="Email Address" maxlength="255" required>
+      <input name="course" placeholder="Course Title" maxlength="255" required>
       <select name="year_of_study" required>
         <option value="">Select year of study</option>
         <option value="1">1st Year</option>
@@ -25,7 +25,10 @@
         <option value="masters">Masters</option>
         <option value="phd">PhD</option>
       </select>
-      <textarea name="message" placeholder="Additional Message"></textarea>
+      <textarea id="message" name="message" placeholder="Additional Message" maxlength="2000"></textarea>
+      <small class="char-counter">
+        <span id="message-count">0</span>/2000 characters
+      </small>
       <button type="submit">Apply</button>
     </form>
   </div>

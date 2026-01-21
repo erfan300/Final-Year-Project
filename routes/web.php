@@ -12,7 +12,8 @@ use App\Http\Controllers\{
     PublicController,
     RecruitmentSubmissionController,
     SponsorshipSubmissionController,
-    GeneralEnquiryController
+    GeneralEnquiryController,
+    FaqController
 };
 
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])
@@ -25,12 +26,18 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])
     ->name('admin.logout');
 
 Route::middleware('admin.auth')->group(function () {
-    // FAQ + other single content sections (edit-only)
+    // single content sections (edit-only)
     Route::get('/content/{id}/edit', [ContentSectionController::class, 'edit'])->name('content.edit');
     Route::put('/content/{id}', [ContentSectionController::class, 'update'])->name('content.update');
     Route::get('/admin/content/create', [ContentSectionController::class, 'create'])->name('content.create');
     Route::post('/admin/content/store', [ContentSectionController::class, 'store'])->name('content.store');
 
+    // FAQ
+    Route::get('/admin/faqs/create', [FaqController::class, 'create'])->name('faqs.create');
+    Route::post('/admin/faqs', [FaqController::class, 'store'])->name('faqs.store');
+    Route::get('/admin/faqs/{faq}/edit', [FaqController::class, 'edit'])->name('faqs.edit');
+    Route::put('/admin/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update');
+    Route::delete('/admin/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy');
 
     // Sponsors (logo + website)
     Route::get('/sponsors/create', [SponsorController::class, 'create'])->name('sponsors.create');
@@ -72,7 +79,7 @@ Route::get('/', [PublicController::class, 'home'])->name('home');
 
 Route::get('/recruitment', [PublicController::class, 'recruitment'])->name('recruitment');
 
-Route::get('/faq', [PublicController::class, 'faq'])->name('faq');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
 Route::get('/sponsors', [PublicController::class, 'sponsors'])->name('sponsors');
 

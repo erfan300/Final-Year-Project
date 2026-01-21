@@ -13,14 +13,36 @@
   </section>
 
   <div class="section">
-    <div class="prose">
-      {!! nl2br(e($faq->content ?? '')) !!}
-    </div>
-
-    @if(session()->has('admin_id') && $faq)
+    @if(session()->has('admin_id'))
       <div class="admin-controls">
-        <a href="{{ route('content.edit', $faq->id) }}" class="btn btn-small">Edit FAQ</a>
+        <a href="{{ route('faqs.create') }}" class="btn btn-small">Add FAQ</a>
       </div>
+    @endif
+
+    @if(isset($faqs) && $faqs->count())
+      <div class="faq-list">
+        @foreach($faqs as $item)
+          <div class="faq-item">
+            <h3 class="faq-q">{{ $item->question }}</h3>
+            <div class="faq-a prose">{!! nl2br(e($item->answer)) !!}</div>
+
+           @if(session()->has('admin_id'))
+            <div class="faq-actions">
+              <a href="{{ route('faqs.edit', $item->id) }}" class="admin-login-btn">Edit</a>
+
+              <form method="POST" action="{{ route('faqs.destroy', $item->id) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="admin-login-btn">Delete</button>
+              </form>
+            </div>
+          @endif
+          
+          </div>
+        @endforeach
+      </div>
+    @else
+      <p class="prose">No FAQs have been added yet.</p>
     @endif
   </div>
 
@@ -28,9 +50,14 @@
     <form method="POST" action="{{ route('contact.submit') }}">
       <h2>Contact Form</h2>
       @csrf
-      <input name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <textarea name="message" placeholder="Message"></textarea>
+      <input name="name" placeholder="Full Name" maxlength="255" required>
+      <input type="email" name="email" placeholder="Email Address" maxlength="255" required>
+
+      <textarea id="message" name="message" placeholder="Message" maxlength="2000" required></textarea>
+      <small class="char-counter">
+        <span id="message-count">0</span>/2000 characters
+      </small>
+
       <button type="submit">Send</button>
     </form>
   </div>

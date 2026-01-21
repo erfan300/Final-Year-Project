@@ -26,19 +26,12 @@
       @method('PUT')
 
       <label for="website">Sponsor Website</label>
-      <input type="url" name="website" value="{{ $sponsor->website }}" placeholder="https://company.com" required>
+      <input type="url" name="website" value="{{ $sponsor->website }}" placeholder="https://company.com" maxlength="255" required>
       <label for="logo">Sponsor Logo</label>
       <input type="file" name="logo">
 
       <button type="submit">Save</button>
     </form>
-
-    <form method="POST" action="{{ route('sponsors.destroy', $sponsor->id) }}">
-      @csrf
-      @method('DELETE')
-      <button type="submit">Delete</button>
-    </form>
-
   </div>
 </section>
 

@@ -48,11 +48,14 @@
     <form method="POST" action="{{ route('sponsorship.submit') }}">
       <h2>Sponsorship Enquiry</h2>
       @csrf
-      <input name="company_name" placeholder="Company Name" required>
-      <input name="contact_person" placeholder="Contact Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
+      <input name="company_name" placeholder="Company Name" maxlength="255" required>
+      <input name="contact_person" placeholder="Contact Name" maxlength="255" required>
+      <input type="email" name="email" placeholder="Email Address" maxlength="255" required>
       <input name="phone" placeholder="Phone Number" required>
-      <textarea name="message" placeholder="Additional Message"></textarea>
+      <textarea id="message" name="message" placeholder="Additional Message" maxlength="2000"></textarea>
+      <small class="char-counter">
+        <span id="message-count">0</span>/2000 characters
+      </small>
       <button type="submit">Submit Enquiry</button>
     </form>
   </div>

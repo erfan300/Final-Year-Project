@@ -48,5 +48,23 @@
   });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[maxlength]').forEach(field => {
+    const max = field.getAttribute('maxlength');
+
+    const counter = document.querySelector(`#${field.id}-count`);
+    if (!counter) return;
+
+    const update = () => {
+      counter.textContent = field.value.length;
+    };
+
+    field.addEventListener('input', update);
+    update();
+  });
+});
+</script>
+
 </body>
 </html>

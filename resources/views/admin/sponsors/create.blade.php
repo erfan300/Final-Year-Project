@@ -22,7 +22,7 @@
       @csrf
 
       <label for="website">Sponsor Website</label>
-      <input id="website" type="url" name="website" placeholder="https://company.com" required>
+      <input id="website" type="url" name="website" placeholder="https://company.com" maxlength="255" required>
 
       <label for="logo">Sponsor Logo</label>
       <input id="logo" type="file" name="logo" accept="image/*" required>

@@ -32,10 +32,12 @@
       <input type="hidden" name="section_key" value="{{ $section_key }}">
 
       <h2>Content</h2>
-      <textarea id="content" name="content" rows="12" required placeholder="Enter the content for this section...">
+      <textarea id="content" name="content" rows="12" maxlength="2000" required placeholder="Enter the content for this section...">
         {{ old('content', $content->content ?? '') }}
       </textarea>
-
+      <small class="char-counter">
+        <span id="content-count">0</span>/2000 characters
+      </small>
       <button type="submit">
         {{ $content ? 'Save Changes' : 'Create Content' }}
       </button>
