@@ -12,7 +12,6 @@
     </section>
   <div class="section">
     <form method="POST" action="{{ route('recruitment.submit') }}">
-      <h2>Recruitment Form</h2>
       @csrf
       <input name="name" placeholder="Full Name" maxlength="255" required>
       <input type="email" name="email" placeholder="Email Address" maxlength="255" required>

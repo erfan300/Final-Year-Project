@@ -14,19 +14,54 @@
   <div class="section">
     @if(session()->has('admin_id'))
       <div class="admin-controls">
-        <a href="{{ route('specs.create') }}" class="btn btn-small">Add Spec</a>
+        <a href="{{ route('builds.create') }}" class="btn btn-small">Add Build</a>
       </div>
     @endif
 
-    <div class="prose">
-      <ul class="spec-list">
-        @foreach($specs as $spec)
-          <li class="spec-item">
-            <strong>{{ $spec->spec_name }}:</strong> {{ $spec->spec_value }}
-          </li>
+    @if(isset($builds) && $builds->count())
+      <div class="build-list">
+        @foreach($builds as $build)
+          <div class="build-card">
+
+            @if($build->image_path)
+              <div class="build-image build-image--small">
+                <img src="{{ asset('storage/'.$build->image_path) }}" alt="Car build image">
+              </div>
+            @endif
+
+            <h2 class="build-title">{{ $build->name }} ({{ $build->year }})</h2>
+
+            @if($build->highlights)
+              <p class="prose">{{ $build->highlights }}</p>
+            @endif
+
+            <div class="build-grid">
+              <div class="build-spec"><strong>Top Speed (mph):</strong> {{ $build->top_speed }}</div>
+              <div class="build-spec"><strong>Weight (kg):</strong> {{ $build->weight }}</div>
+              <div class="build-spec"><strong>Power (kW):</strong> {{ $build->power }}</div>
+              <div class="build-spec"><strong>Engine:</strong> {{ $build->engine }}</div>
+              <div class="build-spec"><strong>Chassis:</strong> {{ $build->chassis }}</div>
+            </div>
+
+            @if(session()->has('admin_id'))
+              <div class="build-actions">
+                <a href="{{ route('builds.edit', $build->id) }}" class="admin-login-btn">Edit</a>
+
+                <form method="POST" action="{{ route('builds.destroy', $build->id) }}">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="admin-login-btn">Delete</button>
+                </form>
+              </div>
+            @endif
+
+          </div>
         @endforeach
-      </ul>
-    </div>
+      </div>
+    @else
+      <p class="prose">No builds have been added yet.</p>
+    @endif
+
   </div>
 </section>
 

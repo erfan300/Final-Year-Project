@@ -13,7 +13,8 @@ use App\Http\Controllers\{
     RecruitmentSubmissionController,
     SponsorshipSubmissionController,
     GeneralEnquiryController,
-    FaqController
+    FaqController,
+    CarBuildController
 };
 
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])
@@ -53,12 +54,13 @@ Route::middleware('admin.auth')->group(function () {
     Route::put('/media/{id}', [MediaController::class, 'update'])->name('media.update');
     Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
 
-    // Technical specs
-    Route::get('/specs/create', [TechnicalSpecController::class, 'create'])->name('specs.create');
-    Route::post('/specs', [TechnicalSpecController::class, 'store'])->name('specs.store');
-    Route::get('/specs/{id}/edit', [TechnicalSpecController::class, 'edit'])->name('specs.edit');
-    Route::put('/specs/{id}', [TechnicalSpecController::class, 'update'])->name('specs.update');
-    Route::delete('/specs/{id}', [TechnicalSpecController::class, 'destroy'])->name('specs.destroy');
+    // Car Builds
+    Route::get('/admin/builds/create', [CarBuildController::class, 'create'])->name('builds.create');
+    Route::post('/admin/builds', [CarBuildController::class, 'store'])->name('builds.store');
+    Route::get('/admin/builds/{build}/edit', [CarBuildController::class, 'edit'])->name('builds.edit');
+    Route::put('/admin/builds/{build}', [CarBuildController::class, 'update'])->name('builds.update');
+    Route::delete('/admin/builds/{build}', [CarBuildController::class, 'destroy'])->name('builds.destroy');
+
 
     // Updates / Results
     Route::get('/updates/create', [UpdateController::class, 'create'])->name('updates.create');

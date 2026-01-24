@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{
-  ContentSection, Sponsor, Update, TeamProfile, TechnicalSpec, MediaItem
+  ContentSection, Sponsor, Update, TeamProfile, CarBuild, MediaItem
 };
 
 class PublicController extends Controller
@@ -40,8 +40,8 @@ class PublicController extends Controller
 
   public function specs()
   {
-    $specs = TechnicalSpec::all();
-    return view('public.specs', compact('specs'));
+    $builds = \App\Models\CarBuild::orderByDesc('year')->orderByDesc('id')->get();
+    return view('public.specs', compact('builds'));
   }
 
   public function media()
