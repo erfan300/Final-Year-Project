@@ -6,7 +6,6 @@ use App\Http\Controllers\{
     ContentSectionController,
     SponsorController,
     MediaController,
-    TechnicalSpecController,
     UpdateController,
     TeamProfileController,
     PublicController,
@@ -26,19 +25,20 @@ Route::post('/admin/login', [AdminAuthController::class, 'login'])
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])
     ->name('admin.logout');
 
-Route::middleware('admin.auth')->group(function () {
-    // single content sections (edit-only)
+Route::prefix('admin')->middleware('admin.auth')->group(function () {
+
+    // Content section
     Route::get('/content/{id}/edit', [ContentSectionController::class, 'edit'])->name('content.edit');
     Route::put('/content/{id}', [ContentSectionController::class, 'update'])->name('content.update');
-    Route::get('/admin/content/create', [ContentSectionController::class, 'create'])->name('content.create');
-    Route::post('/admin/content/store', [ContentSectionController::class, 'store'])->name('content.store');
+    Route::get('/content/create', [ContentSectionController::class, 'create'])->name('content.create');
+    Route::post('/content/store', [ContentSectionController::class, 'store'])->name('content.store');
 
     // FAQ
-    Route::get('/admin/faqs/create', [FaqController::class, 'create'])->name('faqs.create');
-    Route::post('/admin/faqs', [FaqController::class, 'store'])->name('faqs.store');
-    Route::get('/admin/faqs/{faq}/edit', [FaqController::class, 'edit'])->name('faqs.edit');
-    Route::put('/admin/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update');
-    Route::delete('/admin/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy');
+    Route::get('/faqs/create', [FaqController::class, 'create'])->name('faqs.create');
+    Route::post('/faqs', [FaqController::class, 'store'])->name('faqs.store');
+    Route::get('/faqs/{faq}/edit', [FaqController::class, 'edit'])->name('faqs.edit');
+    Route::put('/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update');
+    Route::delete('/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy');
 
     // Sponsors (logo + website)
     Route::get('/sponsors/create', [SponsorController::class, 'create'])->name('sponsors.create');
@@ -55,14 +55,13 @@ Route::middleware('admin.auth')->group(function () {
     Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
 
     // Car Builds
-    Route::get('/admin/builds/create', [CarBuildController::class, 'create'])->name('builds.create');
-    Route::post('/admin/builds', [CarBuildController::class, 'store'])->name('builds.store');
-    Route::get('/admin/builds/{build}/edit', [CarBuildController::class, 'edit'])->name('builds.edit');
-    Route::put('/admin/builds/{build}', [CarBuildController::class, 'update'])->name('builds.update');
-    Route::delete('/admin/builds/{build}', [CarBuildController::class, 'destroy'])->name('builds.destroy');
+    Route::get('/builds/create', [CarBuildController::class, 'create'])->name('builds.create');
+    Route::post('/builds', [CarBuildController::class, 'store'])->name('builds.store');
+    Route::get('/builds/{build}/edit', [CarBuildController::class, 'edit'])->name('builds.edit');
+    Route::put('/builds/{build}', [CarBuildController::class, 'update'])->name('builds.update');
+    Route::delete('/builds/{build}', [CarBuildController::class, 'destroy'])->name('builds.destroy');
 
-
-    // Updates / Results
+    // Updates
     Route::get('/updates/create', [UpdateController::class, 'create'])->name('updates.create');
     Route::post('/updates', [UpdateController::class, 'store'])->name('updates.store');
     Route::get('/updates/{id}/edit', [UpdateController::class, 'edit'])->name('updates.edit');
