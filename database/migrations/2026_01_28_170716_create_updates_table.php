@@ -15,10 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('body');
-            $table->string('image')->nullable();
-            $table->string('type')->default('update');
-            $table->string('event_name')->nullable();
-            $table->string('position')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

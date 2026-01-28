@@ -13,15 +13,16 @@
 
   <div class="section">
 
-    @if($build && $build->image_path)
-      <div class="build-image build-image--small">
-        <img src="{{ asset('storage/'.$build->image_path) }}" alt="Current build image">
-      </div>
-    @endif
-
-    <form method="POST" action="{{ $build ? route('builds.update', $build->id) : route('builds.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ $build ? route('builds.update', $build->id) : route('builds.store') }}" enctype="multipart/form-data" class="admin-form admin-form-card">
         @csrf
         @if($build) @method('PUT') @endif
+        @if($build && $build->image_path)
+          <div class="admin-image-block">
+            <div class="build-image build-image--small">
+              <img src="{{ asset('storage/'.$build->image_path) }}" alt="Current build image">
+            </div>
+          </div>
+        @endif
 
         <input name="name" placeholder="Build name" maxlength="255"
             value="{{ old('name', $build->name ?? '') }}" required>

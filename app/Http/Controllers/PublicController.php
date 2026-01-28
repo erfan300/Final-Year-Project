@@ -28,7 +28,7 @@ class PublicController extends Controller
 
   public function updates()
   {
-    $updates = Update::latest()->get();
+    $updates = Update::orderByDesc('updated_at')->get();
     return view('public.updates', compact('updates'));
   }
 

@@ -451,8 +451,53 @@ button:hover {
   font-size: 1.2rem;
 }
 
+.update-meta {
+  font-size: .85rem;
+  color: #666;
+  margin-bottom: .4rem;
+}
+
 .update-body {
   margin: 0;
+}
+
+.update-body a {
+  color: #6a0dad;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.update-body a:hover {
+  text-decoration: none;
+}
+
+.admin-form-card {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.admin-image-block {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.checkbox-row input[type="checkbox"] {
+  margin: 0;              
+  vertical-align: middle; 
+  width: 16px;
+  height: 16px;
 }
 
 .team-member {
