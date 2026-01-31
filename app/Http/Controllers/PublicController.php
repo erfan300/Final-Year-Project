@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{
-  ContentSection, Sponsor, Update, TeamProfile, CarBuild, MediaItem
+  ContentSection, Sponsor, Update, TeamProfile, CarBuild, MediaPost
 };
 
 class PublicController extends Controller
@@ -40,13 +40,13 @@ class PublicController extends Controller
 
   public function specs()
   {
-    $builds = \App\Models\CarBuild::orderByDesc('year')->orderByDesc('id')->get();
+    $builds = CarBuild::orderByDesc('year')->orderByDesc('id')->get();
     return view('public.specs', compact('builds'));
   }
 
   public function media()
   {
-    $posts = \App\Models\MediaPost::with('items')->latest()->get();
+    $posts = MediaPost::with('items')->latest()->get();
     return view('public.media', compact('posts'));
   }
 }
