@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class MediaItem extends Model
 {
     protected $fillable = [
-        'title',
-        'event_name',
-        'event_date',
+        'media_post_id',
         'file_path',
+        'sort_order',
     ];
+
+    public function post()
+    {
+        return $this->belongsTo(MediaPost::class, 'media_post_id');
+    }
 }

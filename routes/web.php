@@ -50,9 +50,9 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     // Media gallery
     Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
     Route::post('/media', [MediaController::class, 'store'])->name('media.store');
-    Route::get('/media/{id}/edit', [MediaController::class, 'edit'])->name('media.edit');
-    Route::put('/media/{id}', [MediaController::class, 'update'])->name('media.update');
-    Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
+    Route::get('/media/{post}/edit', [MediaController::class, 'edit'])->name('media.edit');
+    Route::put('/media/{post}', [MediaController::class, 'update'])->name('media.update');
+    Route::delete('/media/{post}', [MediaController::class, 'destroy'])->name('media.destroy');
 
     // Car Builds
     Route::get('/builds/create', [CarBuildController::class, 'create'])->name('builds.create');

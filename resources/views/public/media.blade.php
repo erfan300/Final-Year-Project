@@ -1,9 +1,22 @@
+@php use Illuminate\Support\Str; @endphp
+
 @extends('layouts.app')
 @section('title','Media')
 @section('content')
 
-<section class="page">
+@php
+  function linkifyMedia($text) {
+    $escaped = e($text);
+    $linked = preg_replace(
+      '~(https?://[^\s<]+)~i',
+      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>',
+      $escaped
+    );
+    return nl2br($linked);
+  }
+@endphp
 
+<section class="page">
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-badge">Gallery</div>
@@ -15,15 +28,72 @@
   <div class="section">
     @if(session()->has('admin_id'))
       <div class="admin-controls">
-        <a href="{{ route('media.create') }}" class="btn btn-small">Add Media</a>
+        <a href="{{ route('media.create') }}" class="btn btn-small">Add Media Post</a>
       </div>
     @endif
 
-    <div class="media-grid">
-      @foreach($media as $item)
-        <img src="{{ asset('storage/'.$item->file_path) }}" alt="Media item">
-      @endforeach
-    </div>
+    @if($posts->count())
+      <div class="media-posts">
+        @foreach($posts as $post)
+          <article class="media-post">
+
+            <div class="media-meta">
+              Posted {{ $post->created_at->format('d M Y - H:i') }}
+              @if($post->updated_at && $post->updated_at->gt($post->created_at))
+                · Edited {{ $post->updated_at->format('d M Y - H:i') }}
+              @endif
+              @if($post->event_name)
+                · <strong class="media-meta-highlight">{{ $post->event_name }}</strong>
+              @endif
+
+              @if($post->event_date)
+                · <strong class="media-meta-highlight">{{ \Carbon\Carbon::parse($post->event_date)->format('d M Y') }}</strong>
+              @endif
+            </div>
+
+            @if($post->title)
+              <h3 class="media-title">{{ $post->title }}</h3>
+            @endif
+
+            <div class="media-grid">
+              @foreach($post->items as $img)
+                <div class="media-img">
+                  @if(Str::endsWith($img->file_path, ['.mp4', '.webm']))
+                    <video controls preload="metadata">
+                      <source src="{{ asset('storage/'.$img->file_path) }}">
+                      Your browser does not support the video tag.
+                    </video>
+                  @else
+                    <img src="{{ asset('storage/'.$img->file_path) }}" alt="Media">
+                  @endif
+                </div>
+              @endforeach
+            </div>
+
+            @if($post->caption)
+              <p class="prose media-caption">
+                {!! linkifyMedia($post->caption) !!}
+              </p>
+            @endif
+
+            @if(session()->has('admin_id'))
+              <div class="sponsor-actions">
+                <a href="{{ route('media.edit', $post->id) }}" class="admin-login-btn">Edit</a>
+
+                <form method="POST" action="{{ route('media.destroy', $post->id) }}">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="admin-login-btn">Delete</button>
+                </form>
+              </div>
+            @endif
+
+          </article>
+        @endforeach
+      </div>
+    @else
+      <p class="prose">No media has been added yet.</p>
+    @endif
   </div>
 
 </section>

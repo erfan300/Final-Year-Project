@@ -46,7 +46,7 @@ class PublicController extends Controller
 
   public function media()
   {
-    $media = MediaItem::latest()->get();
-    return view('public.media', compact('media'));
+    $posts = \App\Models\MediaPost::with('items')->latest()->get();
+    return view('public.media', compact('posts'));
   }
 }
