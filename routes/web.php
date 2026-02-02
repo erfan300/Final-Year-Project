@@ -71,9 +71,10 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     // Team Profiles
     Route::get('/team/create', [TeamProfileController::class, 'create'])->name('team.create');
     Route::post('/team', [TeamProfileController::class, 'store'])->name('team.store');
-    Route::get('/team/{id}/edit', [TeamProfileController::class, 'edit'])->name('team.edit');
-    Route::put('/team/{id}', [TeamProfileController::class, 'update'])->name('team.update');
-    Route::delete('/team/{id}', [TeamProfileController::class, 'destroy'])->name('team.destroy');
+    Route::get('/team/{profile}/edit', [TeamProfileController::class, 'edit'])->name('team.edit');
+    Route::put('/team/{profile}', [TeamProfileController::class, 'update'])->name('team.update');
+    Route::delete('/team/{profile}', [TeamProfileController::class, 'destroy'])->name('team.destroy');
+
 });
 
 Route::get('/', [PublicController::class, 'home'])->name('home');

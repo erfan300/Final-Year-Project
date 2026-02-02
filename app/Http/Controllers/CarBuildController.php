@@ -17,7 +17,7 @@ class CarBuildController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'year' => 'required|integer|min:2000|max:2100',
-            'image' => 'required|image|max:2048',
+            'image' => 'required|image|max:5120',
             'top_speed' => 'required|integer|min:0|max:999',
             'weight'    => 'required|integer|min:0|max:999',
             'power'     => 'required|integer|min:0|max:999',
@@ -49,7 +49,7 @@ class CarBuildController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'year' => 'required|integer|min:2000|max:2026',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:5120',
             'top_speed' => 'required|integer|min:0|max:999',
             'weight'    => 'required|integer|min:0|max:999',
             'power'     => 'required|integer|min:0|max:999',

@@ -18,7 +18,7 @@ class SponsorController extends Controller
     {
         $request->validate([
             'website' => 'required|url|max:255',
-            'logo' => 'required|image|max:2048',
+            'logo' => 'required|image|max:5120',
         ]);
 
         $path = $request->file('logo')->store('sponsors', 'public');
@@ -42,7 +42,7 @@ class SponsorController extends Controller
     {
         $request->validate([
             'website' => 'required|url|max:255',
-            'logo' => 'nullable|image|max:2048',
+            'logo' => 'nullable|image|max:5120',
         ]);
 
         $sponsor = Sponsor::findOrFail($id);

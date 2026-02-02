@@ -4,51 +4,67 @@ namespace App\Http\Controllers;
 
 use App\Models\TeamProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TeamProfileController extends Controller
 {
     public function create()
     {
-        return view('admin.team.create');
+        return view('admin.team.form', ['profile' => null]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
-            'bio' => 'nullable|string',
-            'testimonial' => 'nullable|string',
+        $data = $request->validate([
+            'name'        => 'required|string|max:255',
+            'role'        => 'required|string|max:255',
+            'bio'         => 'nullable|string|max:500',
+            'testimonial' => 'nullable|string|max:1000',
+            'photo'       => 'required|image|max:2048', 
         ]);
 
-        TeamProfile::create($request->only(['name','role','bio','testimonial']));
-        return back()->with('success', 'Team profile added.');
+        $data['photo'] = $request->file('photo')->store('team', 'public');
+
+        TeamProfile::create($data);
+
+        return redirect()->route('team')->with('success', 'Team member added.');
     }
 
-    public function edit($id)
+    public function edit(TeamProfile $profile)
     {
-        $profile = TeamProfile::findOrFail($id);
-        return view('admin.team.edit', compact('profile'));
+        return view('admin.team.form', compact('profile'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, TeamProfile $profile)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
-            'bio' => 'nullable|string',
-            'testimonial' => 'nullable|string',
+        $data = $request->validate([
+            'name'        => 'required|string|max:255',
+            'role'        => 'required|string|max:255',
+            'bio'         => 'nullable|string|max:500',
+            'testimonial' => 'nullable|string|max:1000',
+            'photo'       => 'nullable|image|max:5120',
         ]);
 
-        $profile = TeamProfile::findOrFail($id);
-        $profile->update($request->only(['name','role','bio','testimonial']));
+        if ($request->hasFile('photo')) {
+            if ($profile->photo) {
+                Storage::disk('public')->delete($profile->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('team', 'public');
+        }
 
-        return back()->with('success', 'Team profile updated.');
+        $profile->update($data);
+
+        return redirect()->route('team')->with('success', 'Team member updated.');
     }
 
-    public function destroy($id)
+    public function destroy(TeamProfile $profile)
     {
-        TeamProfile::findOrFail($id)->delete();
-        return back()->with('success', 'Team profile deleted.');
+        if ($profile->photo) {
+            Storage::disk('public')->delete($profile->photo);
+        }
+
+        $profile->delete();
+
+        return back()->with('success', 'Team member removed.');
     }
 }

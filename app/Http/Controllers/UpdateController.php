@@ -18,7 +18,7 @@ class UpdateController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string|max:2000',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:5120',
         ]);
 
         $update = new Update();
@@ -48,7 +48,7 @@ class UpdateController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string|max:2000',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:5120',
             'remove_image' => 'nullable|boolean',
         ]);
 

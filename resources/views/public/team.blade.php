@@ -19,14 +19,51 @@
       </div>
     @endif
 
-    <div class="prose">
-      @foreach($team as $member)
-        <div class="team-member">
-          <h3 class="team-member-title">{{ $member->name }} – {{ $member->role }}</h3>
-          <p class="team-member-bio">{{ $member->bio }}</p>
-        </div>
-      @endforeach
-    </div>
+    @if($team->count())
+      <div class="team-list">
+        @foreach($team as $member)
+          <article class="team-row">
+
+            <div class="team-row-photo">
+              <img
+                src="{{ $member->photo ? asset('storage/'.$member->photo) : asset('images/avatar-placeholder.png') }}"
+                alt="{{ $member->name }}"
+              >
+            </div>
+
+            <div class="team-row-content">
+              <div class="team-row-header">
+                <h3 class="team-row-name">{{ $member->name }}</h3>
+                <div class="team-row-role">{{ $member->role }}</div>
+              </div>
+
+              @if($member->bio)
+                <p class="team-row-bio">{{ $member->bio }}</p>
+              @endif
+
+              @if($member->testimonial)
+                <p class="team-row-testimonial">“{{ $member->testimonial }}”</p>
+              @endif
+
+              @if(session()->has('admin_id'))
+                <div class="team-actions sponsor-actions">
+                  <a href="{{ route('team.edit', $member->id) }}" class="admin-login-btn">Edit</a>
+
+                  <form method="POST" action="{{ route('team.destroy', $member->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="admin-login-btn">Delete</button>
+                  </form>
+                </div>
+              @endif
+            </div>
+
+          </article>
+        @endforeach
+      </div>
+    @else
+      <p class="prose">No team members have been added yet.</p>
+    @endif
 
   </div>
 </section>
