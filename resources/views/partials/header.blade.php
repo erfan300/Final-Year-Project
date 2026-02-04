@@ -1,12 +1,9 @@
-<header>
+<header class="site-header">
 
-  <div class="top-header">
-    
-    <div>
-      <a href="{{ route('home') }}">
-        <img src="{{ asset('images/university-logo.png') }}" alt="University Logo" height="60">
-      </a>
-    </div>
+  <div class="header-inner">
+    <a href="{{ route('home') }}" class="brand">
+      <img src="{{ asset('images/university-logo.png') }}" alt="Aston University" class="brand-logo">
+    </a>
 
     <div class="header-admin">
       @if(session()->has('admin_id'))
@@ -21,40 +18,17 @@
 
   </div>
 
-  <nav>
-    <ul class="ul-header">
-      
-      @php
-        $current = Route::currentRouteName();
-      @endphp
+  <nav class="site-nav">
+    <ul class="nav-list">
+      @php $current = Route::currentRouteName(); @endphp
 
-      @if($current !== 'home')
-        <li><a href="{{ route('home') }}">Home</a></li>
-      @endif
-
-      @if($current !== 'recruitment')
-        <li><a href="{{ route('recruitment') }}">Recruitment</a></li>
-      @endif
-
-      @if($current !== 'sponsors')
-        <li><a href="{{ route('sponsors') }}">Sponsors</a></li>
-      @endif
-
-      @if($current !== 'updates')
-        <li><a href="{{ route('updates') }}">Updates</a></li>
-      @endif
-
-      @if($current !== 'team')
-        <li><a href="{{ route('team') }}">Team</a></li>
-      @endif
-
-      @if($current !== 'specs')
-        <li><a href="{{ route('specs') }}">Technical Specs</a></li>
-      @endif
-
-      @if($current !== 'media')
-        <li><a href="{{ route('media') }}">Media</a></li>
-      @endif
+      <li><a class="nav-link {{ $current === 'home' ? 'is-active' : '' }}" href="{{ route('home') }}">Home</a></li>
+      <li><a class="nav-link {{ $current === 'recruitment' ? 'is-active' : '' }}" href="{{ route('recruitment') }}">Recruitment</a></li>
+      <li><a class="nav-link {{ $current === 'sponsors' ? 'is-active' : '' }}" href="{{ route('sponsors') }}">Sponsors</a></li>
+      <li><a class="nav-link {{ $current === 'updates' ? 'is-active' : '' }}" href="{{ route('updates') }}">Updates</a></li>
+      <li><a class="nav-link {{ $current === 'team' ? 'is-active' : '' }}" href="{{ route('team') }}">Team</a></li>
+      <li><a class="nav-link {{ $current === 'specs' ? 'is-active' : '' }}" href="{{ route('specs') }}">Technical Specs</a></li>
+      <li><a class="nav-link {{ $current === 'media' ? 'is-active' : '' }}" href="{{ route('media') }}">Media</a></li>
     </ul>
   </nav>
 

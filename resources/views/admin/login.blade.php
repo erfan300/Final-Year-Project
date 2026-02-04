@@ -3,18 +3,31 @@
 @section('title', 'Admin Login')
 
 @section('content')
-    <form method="POST" action="{{ route('admin.login.submit') }}">
-        <h2>Admin Login</h2>
-        @csrf
+<section class="page">
 
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Admin</div>
+      <h1 class="hero-title">Admin Login</h1>
+      <p class="hero-subtitle">Sign in to manage content across the site.</p>
+    </div>
+  </section>
 
-        <button type="submit">Login</button>
+  <div class="section">
+    <form method="POST" action="{{ route('admin.login.submit') }}" class="admin-form admin-form-card">
+      @csrf
 
-        @error('login')
-            <p>{{ $message }}</p>
-        @enderror
+      <label for="username">Username</label>
+      <input id="username" type="text" name="username" placeholder="Username" required>
+
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" placeholder="Password" required>
+
+      <button type="submit" class="admin-login-btn">Login</button>
+
     </form>
-@endsection
+  </div>
 
+</section>
+
+@endsection
