@@ -11,7 +11,7 @@ class SponsorController extends Controller
 {
     public function create()
     {
-        return view('admin.sponsors.create');
+        return view('admin.sponsors.form');
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class SponsorController extends Controller
     public function edit($id)
     {
         $sponsor = Sponsor::findOrFail($id);
-        return view('admin.sponsors.edit', compact('sponsor'));
+        return view('admin.sponsors.form', compact('sponsor'));
     }
 
     public function update(Request $request, $id)
