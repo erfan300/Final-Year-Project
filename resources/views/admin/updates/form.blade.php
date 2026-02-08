@@ -37,7 +37,14 @@
         <span id="body-count">0</span>/2000 characters
       </small>
 
-      <input type="file" name="image" accept="image/*">
+      <label for="image">
+        Update Image
+        <span class="field-hint">
+          {{ $update ? ' — leave blank to keep existing image' : '(Optional)' }}
+        </span>
+      </label>
+
+      <input id="image" type="file" name="image" accept="image/*">
 
       <button type="submit">
         {{ $update ? 'Save Changes' : 'Create Update' }}

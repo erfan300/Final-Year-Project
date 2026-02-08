@@ -35,7 +35,14 @@
         <span id="testimonial-count">0</span>/1000 characters
       </small>
 
-      <input type="file" name="photo" accept="image/*" @if(!$profile) required @endif>
+      <label for="image">
+        Team Member Image
+        <span class="field-hint">
+          {{ $profile ? ' — leave blank to keep existing image' : '' }}
+        </span>
+      </label>
+
+      <input id="image" type="file" name="photo" accept="image/*" @if(!$profile) required @endif>
 
       <button type="submit">
         {{ $profile ? 'Save Changes' : 'Add Member' }}

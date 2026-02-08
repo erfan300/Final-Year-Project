@@ -24,7 +24,7 @@
         <option value="masters">Masters</option>
         <option value="phd">PhD</option>
       </select>
-      <textarea id="message" name="message" placeholder="Additional Message" maxlength="2000"></textarea>
+      <textarea id="message" name="message" placeholder="Additional Message (Optional)" maxlength="2000"></textarea>
       <small class="char-counter">
         <span id="message-count">0</span>/2000 characters
       </small>

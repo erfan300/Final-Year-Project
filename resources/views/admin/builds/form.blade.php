@@ -27,10 +27,16 @@
         <input name="name" placeholder="Build name" maxlength="255"
             value="{{ old('name', $build->name ?? '') }}" required>
 
-        <input type="number" name="year" placeholder="Year" min="2000" max="2100"
-            value="{{ old('year', $build->year ?? '') }}" required>
+        <input type="number" name="year" placeholder="Year" min="2000" max="2100" value="{{ old('year', $build->year ?? '') }}" required>
+        
+        <label for="image">
+          Build Image
+          <span class="field-hint">
+          {{ $build ? ' — leave blank to keep existing image' : '' }}
+          </span>
+        </label>
 
-        <input type="file" name="image" {{ $build ? '' : 'required' }}>
+        <input id="image" type="file" name="image" accept="image/*" {{ $build ? '' : 'required' }}>
 
         <input type="number" name="top_speed" placeholder="Top Speed" maxlength="255" min="0" max="999" value="{{ old('top_speed', $build->top_speed ?? '') }}" required>
 
@@ -44,7 +50,7 @@
         <input name="chassis" placeholder="Chassis" maxlength="255"
             value="{{ old('chassis', $build->chassis ?? '') }}" required>
 
-        <textarea id="highlights" name="highlights" placeholder="Highlights" maxlength="2000">{{ old('highlights', $build->highlights ?? '') }}</textarea>
+        <textarea id="highlights" name="highlights" placeholder="Highlights (Optional)" maxlength="2000">{{ old('highlights', $build->highlights ?? '') }}</textarea>
 
         <small class="char-counter">
             <span id="highlights-count">0</span>/2000 characters

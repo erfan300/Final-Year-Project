@@ -24,7 +24,14 @@
         <span id="answer-count">0</span>/2000 characters
       </small>
 
-      <input type="number" name="sort_order" placeholder="Order (optional)" value="{{ old('sort_order', $faq->sort_order ?? 0) }}" min="0">
+      <label for="sort">
+        Sort Number
+        <span class="field-hint">
+          {{ $faq ? ' — leave blank to keep existing order' : '(Optional)' }}
+        </span>
+      </label>
+
+      <input id="sort" type="number" name="sort_order" placeholder="Order (optional)" value="{{ old('sort_order', $faq->sort_order ?? 0) }}" min="0">
 
       <button type="submit">{{ $faq ? 'Save Changes' : 'Create FAQ' }}</button>
     </form>

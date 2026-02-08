@@ -27,7 +27,14 @@
 
       <input name="event_name" placeholder="Optional event name" maxlength="255" value="{{ old('event_name', $post->event_name ?? '') }}">
 
-      <input type="date" name="event_date" value="{{ old('event_date', $post->event_date ?? '') }}" max="{{ now()->toDateString() }}" min="{{ now()->subYears(10)->toDateString() }}">
+      <label for="date">
+        Event Date
+        <span class="field-hint">
+          {{ $post ? ' — leave blank to keep existing date' : '(Optional)' }}
+        </span>
+      </label>
+
+      <input id="date" type="date" name="event_date" value="{{ old('event_date', $post->event_date ?? '') }}" max="{{ now()->toDateString() }}" min="{{ now()->subYears(10)->toDateString() }}">
 
       @if($post && $post->items->count())
         <div class="media-existing">
@@ -35,16 +42,36 @@
 
           <div class="media-grid">
             @foreach($post->items as $item)
+              @php
+                $path = $item->file_path;
+                $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                $isVideo = in_array($ext, ['mp4','webm','ogg','mov']);
+              @endphp
+
               <label class="media-thumb">
                 <input type="checkbox" name="remove_items[]" value="{{ $item->id }}">
-                <img src="{{ asset('storage/'.$item->file_path) }}" alt="Media image">
+
+                @if($isVideo)
+                  <video class="media-thumb-video" muted playsinline preload="metadata">
+                    <source src="{{ asset('storage/'.$path) }}">
+                  </video>
+                @else
+                  <img src="{{ asset('storage/'.$path) }}" alt="Media image">
+                @endif
               </label>
             @endforeach
           </div>
         </div>
       @endif
+      
+      <label for="media">
+        Media Post
+        <span class="field-hint">
+          {{ $post ? ' — leave blank to keep existing media' : '' }}
+        </span>
+      </label>
 
-      <input type="file" name="files[]" accept="image/*,video/*" multiple {{ $post ? '' : 'required' }}>
+      <input id="media" type="file" name="files[]" accept="image/*,video/*" multiple {{ $post ? '' : 'required' }}>
 
       <button type="submit">{{ $post ? 'Save Changes' : 'Create Post' }}</button>
     </form>

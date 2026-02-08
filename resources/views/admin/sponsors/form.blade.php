@@ -39,9 +39,7 @@
 
       <label for="logo">
         Sponsor Logo
-        @if(isset($sponsor))
-          <small>(Leave blank to keep current logo)</small>
-        @endif
+          <span class="field-hint">{{ isset($sponsor)? '(optional — leave blank to keep existing logo)': '' }}</span>
       </label>
 
       <input id="logo" type="file" name="logo" accept="image/*" {{ isset($sponsor) ? '' : 'required' }}>

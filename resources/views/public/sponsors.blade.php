@@ -52,7 +52,7 @@
       <input name="contact_person" placeholder="Contact Name" maxlength="255" required>
       <input type="email" name="email" placeholder="Email Address" maxlength="255" required>
       <input name="phone" placeholder="Phone Number" required>
-      <textarea id="message" name="message" placeholder="Additional Message" maxlength="2000"></textarea>
+      <textarea id="message" name="message" placeholder="Additional Message (Optional)" maxlength="2000"></textarea>
       <small class="char-counter">
         <span id="message-count">0</span>/2000 characters
       </small>
