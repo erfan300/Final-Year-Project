@@ -21,7 +21,7 @@ class ContentSectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'content' => ['required', 'string', new NoProfanity],
+            'content' => ['required', 'string'],
         ]);
 
         $section = ContentSection::findOrFail($id);
@@ -44,7 +44,7 @@ class ContentSectionController extends Controller
     {
         $request->validate([
             'section_key' => ['required', 'string'],
-            'content'     => ['required', 'string', 'max:2000' ,new NoProfanity],
+            'content'     => ['required', 'string', 'max:2000'],
         ]);
 
         ContentSection::create([
