@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('car_builds', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default('Aston Formula Student');
-            $table->unsignedSmallInteger('year');
+            $table->string('name');
+            $table->unsignedSmallInteger('year'); // Small integer for storage efficiency
             $table->string('image_path')->nullable();
-            $table->unsignedSmallInteger('top_speed');
+            $table->unsignedSmallInteger('top_speed'); // Unsigned numeric values (no negative values)
             $table->unsignedSmallInteger('weight');
             $table->unsignedSmallInteger('power');
             $table->string('engine');

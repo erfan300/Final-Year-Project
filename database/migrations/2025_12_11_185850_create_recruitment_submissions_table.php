@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('course');
             $table->string('year_of_study');
-            $table->text('message')->nullable();
+            $table->text('message')->nullable(); // Optional
             $table->timestamps();
         });
     }

@@ -13,11 +13,13 @@
 
   <div class="section">
     @if(session()->has('admin_id'))
+      <!-- Securing admin only controls -->
       <div class="admin-controls">
         <a href="{{ route('builds.create') }}" class="btn btn-small">Add Build</a>
       </div>
     @endif
 
+    <!-- Builds rendered if the data exists -->
     @if(isset($builds) && $builds->count())
       <div class="build-list">
         @foreach($builds as $build)
@@ -48,6 +50,7 @@
                 <a href="{{ route('builds.edit', $build->id) }}" class="admin-login-btn">Edit</a>
 
                 <form method="POST" action="{{ route('builds.destroy', $build->id) }}">
+                  <!-- CSRF protection -->
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="admin-login-btn">Delete</button>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('question');
             $table->text('answer');
-            $table->unsignedInteger('sort_order')->default(0);
+            $table->unsignedInteger('sort_order')->default(0); // Display ordering
             $table->timestamps();
         });
     }

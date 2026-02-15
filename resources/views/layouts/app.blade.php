@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="{{ asset('images/university-logo.png') }}">
 </head>
+<!-- Passing success and validation errors to JS toast system -->
 <body data-success="{{ session('success') }}"
   data-errors='@json($errors->all() ?? [])'
 >
@@ -37,7 +38,8 @@
       setTimeout(() => toast.remove(), 250);
     }, 3000);
   }
-
+  
+  // Shows success and validation errors as toast notifactions
   document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
 
@@ -50,6 +52,7 @@
 </script>
 
 <script>
+// Automatically updating character counters for fields with a maxlenght and matching <id>-count
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[maxlength]').forEach(field => {
     const max = field.getAttribute('maxlength');

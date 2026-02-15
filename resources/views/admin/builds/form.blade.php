@@ -14,9 +14,11 @@
   <div class="section">
 
     <form method="POST" action="{{ $build ? route('builds.update', $build->id) : route('builds.store') }}" enctype="multipart/form-data" class="admin-form admin-form-card">
-        @csrf
+        <!-- CSRF protection -->
+        @csrf 
         @if($build) @method('PUT') @endif
         @if($build && $build->image_path)
+        <!-- Showing current image when editing -->
           <div class="admin-image-block">
             <div class="build-image build-image--small">
               <img src="{{ asset('storage/'.$build->image_path) }}" alt="Current build image">
@@ -24,6 +26,7 @@
           </div>
         @endif
 
+        <!-- Reusing form for create and edit - old() keeps user input after validation-->
         <input name="name" placeholder="Build name" maxlength="255"
             value="{{ old('name', $build->name ?? '') }}" required>
 
@@ -36,6 +39,7 @@
           </span>
         </label>
 
+        <!-- File upload required only on create -->
         <input id="image" type="file" name="image" accept="image/*" {{ $build ? '' : 'required' }}>
 
         <input type="number" name="top_speed" placeholder="Top Speed" maxlength="255" min="0" max="999" value="{{ old('top_speed', $build->top_speed ?? '') }}" required>
@@ -44,12 +48,11 @@
 
         <input type="number" name="power" placeholder="Power" maxlength="255" min="0" max="999" value="{{ old('power', $build->power ?? '') }}" required>
 
-        <input name="engine" placeholder="Engine" maxlength="255"
-            value="{{ old('engine', $build->engine ?? '') }}" required>
+        <input name="engine" placeholder="Engine" maxlength="255" value="{{ old('engine', $build->engine ?? '') }}" required>
 
-        <input name="chassis" placeholder="Chassis" maxlength="255"
-            value="{{ old('chassis', $build->chassis ?? '') }}" required>
+        <input name="chassis" placeholder="Chassis" maxlength="255" value="{{ old('chassis', $build->chassis ?? '') }}" required>
 
+        <!-- Uses char-counter which is driven through JS via the use of field id + "-count" -->
         <textarea id="highlights" name="highlights" placeholder="Highlights (Optional)" maxlength="2000">{{ old('highlights', $build->highlights ?? '') }}</textarea>
 
         <small class="char-counter">

@@ -8,8 +8,10 @@ use App\Rules\NoProfanity;
 
 class RecruitmentSubmissionController extends Controller
 {
+    // Storing record
     public function store(Request $request)
     {
+        // Validating inputs
         $request->validate([
             'name'          => ['required', 'string', 'max:255', new NoProfanity],
             'email'         => ['required', 'email', 'max:255', new NoProfanity],
@@ -18,6 +20,7 @@ class RecruitmentSubmissionController extends Controller
             'message'       => ['nullable', 'string', 'max:2000', new NoProfanity],
         ]);
 
+        // Creating record 
         RecruitmentSubmission::create($request->only([
             'name','email','course','year_of_study','message'
         ]));

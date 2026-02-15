@@ -14,6 +14,7 @@
   <div class="section">
 
     @if(session()->has('admin_id'))
+      <!-- Securing admin only controls -->
       <div class="admin-controls">
         <a href="{{ route('team.create') }}" class="btn btn-small">Add Member</a>
       </div>
@@ -25,10 +26,8 @@
           <article class="team-row">
 
             <div class="team-row-photo">
-              <img
-                src="{{ $member->photo ? asset('storage/'.$member->photo) : asset('images/avatar-placeholder.png') }}"
-                alt="{{ $member->name }}"
-              >
+              <!-- Placeholder image used if no photo is selected -->
+              <img src="{{ $member->photo ? asset('storage/'.$member->photo) : asset('images/avatar-placeholder.png') }}" alt="{{ $member->name }}">
             </div>
 
             <div class="team-row-content">
@@ -50,6 +49,7 @@
                   <a href="{{ route('team.edit', $member->id) }}" class="admin-login-btn">Edit</a>
 
                   <form method="POST" action="{{ route('team.destroy', $member->id) }}">
+                    <!-- CSRF protection -->
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="admin-login-btn">Delete</button>

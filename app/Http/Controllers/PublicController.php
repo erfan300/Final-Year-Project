@@ -6,6 +6,7 @@ use App\Models\{
   ContentSection, Sponsor, Update, TeamProfile, CarBuild, MediaPost
 };
 
+// Public facing pages
 class PublicController extends Controller
 {
   public function home()

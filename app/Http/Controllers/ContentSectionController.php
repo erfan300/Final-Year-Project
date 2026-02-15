@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ContentSection;
 use Illuminate\Http\Request;
-use App\Rules\NoProfanity;
 
 class ContentSectionController extends Controller
 {
+    // Displaying edit form
     public function edit($id)
     {
         $content = ContentSection::findOrFail($id);
@@ -20,10 +20,12 @@ class ContentSectionController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validating inputs
         $request->validate([
             'content' => ['required', 'string'],
         ]);
 
+        // Updating only required field from said section
         $section = ContentSection::findOrFail($id);
         $section->update([
             'content' => $request->content,
@@ -32,6 +34,7 @@ class ContentSectionController extends Controller
         return redirect()->route('home')->with('success', 'Content updated successfully.');
     }
 
+    // Displaying create form
     public function create(Request $request)
     {
         return view('admin.content.form', [
@@ -40,6 +43,7 @@ class ContentSectionController extends Controller
         ]);
     }
 
+    // Storing a new entry in DB
     public function store(Request $request)
     {
         $request->validate([

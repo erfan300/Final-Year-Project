@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
+            $table->string('username')->unique(); // To prevent duplicate accounts
             $table->string('password');
             $table->timestamps();
         });

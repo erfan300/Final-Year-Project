@@ -15,6 +15,7 @@
 
   <div class="section">
     <form method="POST" action="{{ route('admin.login.submit') }}" class="admin-form admin-form-card">
+      <!-- CSRF protection -->
       @csrf
 
       <label for="username">Username</label>

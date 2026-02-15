@@ -23,12 +23,14 @@
     @if(isset($sponsor))
       <div class="sponsor-edit-preview">
         <div class="sponsor-logo">
+          <!-- Previewing current image when editing -->
           <img src="{{ asset('storage/'.$sponsor->logo) }}" alt="Current sponsor logo">
         </div>
       </div>
     @endif
 
     <form method="POST" action="{{ isset($sponsor) ? route('sponsors.update', $sponsor->id) : route('sponsors.store') }}" enctype="multipart/form-data">
+      <!-- CSRF Protection -->
       @csrf
       @if(isset($sponsor))
         @method('PUT')
@@ -42,6 +44,7 @@
           <span class="field-hint">{{ isset($sponsor)? '(optional — leave blank to keep existing logo)': '' }}</span>
       </label>
 
+      <!-- Logo is required on create and optional on edit -->
       <input id="logo" type="file" name="logo" accept="image/*" {{ isset($sponsor) ? '' : 'required' }}>
 
       <button type="submit">

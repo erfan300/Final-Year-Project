@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarBuild extends Model
 {
+    // Fields that can be mass assigned 
     protected $fillable = [
         'name',
         'year',

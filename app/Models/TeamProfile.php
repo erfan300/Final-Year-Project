@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeamProfile extends Model
 {
+    // Fields that can be mass assigned
     protected $fillable = [
         'name',
         'role',

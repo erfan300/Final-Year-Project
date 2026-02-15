@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Update extends Model
 {
+    // Fields that can be mass assigned
     protected $fillable = [
         'title',
         'body',

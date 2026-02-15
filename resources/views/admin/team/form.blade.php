@@ -13,6 +13,7 @@
 
   <div class="section">
     <form method="POST" action="{{ $profile ? route('team.update', $profile->id) : route('team.store') }}" enctype="multipart/form-data" class="admin-form admin-form-card">
+      <!-- CSRF protection -->
       @csrf
       @if($profile) @method('PUT') @endif
 
@@ -24,12 +25,14 @@
 
       <input name="name" placeholder="Name" value="{{ old('name', $profile->name ?? '') }}" maxlength="255" required>
       <input name="role" placeholder="Role" value="{{ old('role', $profile->role ?? '') }}" maxlength="255" required>
-
+      
+      <!-- Uses char-counter which is driven through JS via the use of field id + "-count" -->
       <textarea id="bio" name="bio" placeholder="Optional short bio" maxlength="500">{{ old('bio', $profile->bio ?? '') }}</textarea>
       <small class="char-counter">
         <span id="bio-count">0</span>/500 characters
       </small>
 
+      <!-- Uses char-counter which is driven through JS via the use of field id + "-count" -->
       <textarea id="testimonial" name="testimonial" placeholder="Optional testimonial / quote" maxlength="1000">{{ old('testimonial', $profile->testimonial ?? '') }}</textarea>
       <small class="char-counter">
         <span id="testimonial-count">0</span>/1000 characters
@@ -41,7 +44,8 @@
           {{ $profile ? ' — leave blank to keep existing image' : '' }}
         </span>
       </label>
-
+      
+      <!-- Image required on create, optional on edit -->
       <input id="image" type="file" name="photo" accept="image/*" @if(!$profile) required @endif>
 
       <button type="submit">

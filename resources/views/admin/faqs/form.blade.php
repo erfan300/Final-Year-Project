@@ -13,11 +13,13 @@
 
   <div class="section">
     <form method="POST" action="{{ $faq ? route('faqs.update', $faq->id) : route('faqs.store') }}">
+      <!-- CSRF protection -->
       @csrf
       @if($faq) @method('PUT') @endif
 
       <input name="question" placeholder="Question" maxlength="255" value="{{ old('question', $faq->question ?? '') }}" required>
 
+      <!-- Uses char-counter which is driven through JS via the use of field id + "-count" -->
       <textarea id="answer" name="answer" placeholder="Answer" maxlength="2000" required>{{ old('answer', $faq->answer ?? '') }}</textarea>
       
       <small class="char-counter">

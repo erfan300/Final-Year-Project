@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecruitmentSubmission extends Model
 {
+    // Fields that can be mass assigned
     protected $fillable = [
         'name',
         'email',

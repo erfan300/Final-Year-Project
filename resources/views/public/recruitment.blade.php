@@ -12,6 +12,7 @@
     </section>
   <div class="section">
     <form method="POST" action="{{ route('recruitment.submit') }}">
+      <!-- CSRF protection -->
       @csrf
       <input name="name" placeholder="Full Name" maxlength="255" required>
       <input type="email" name="email" placeholder="Email Address" maxlength="255" required>
@@ -24,6 +25,7 @@
         <option value="masters">Masters</option>
         <option value="phd">PhD</option>
       </select>
+      <!-- Uses char-counter which is driven through JS via the use of field id + "-count" -->
       <textarea id="message" name="message" placeholder="Additional Message (Optional)" maxlength="2000"></textarea>
       <small class="char-counter">
         <span id="message-count">0</span>/2000 characters

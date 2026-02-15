@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Faq extends Model
 {
-    protected $fillable = ['question', 'answer', 'sort_order'];
+    // Fields that can be mass assigned
+    protected $fillable = [
+        'question', 
+        'answer', 
+        'sort_order'
+    ];
 }

@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class TeamProfileController extends Controller
 {
+    // Displaying create form
     public function create()
     {
         return view('admin.team.form', ['profile' => null]);
     }
 
+    // Storing record
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -23,6 +25,7 @@ class TeamProfileController extends Controller
             'photo'       => 'required|image|max:2048', 
         ]);
 
+        // Saving image file path in DB
         $data['photo'] = $request->file('photo')->store('team', 'public');
 
         TeamProfile::create($data);
@@ -30,11 +33,13 @@ class TeamProfileController extends Controller
         return redirect()->route('team')->with('success', 'Team member added.');
     }
 
+    // Displaying edit form
     public function edit(TeamProfile $profile)
     {
         return view('admin.team.form', compact('profile'));
     }
 
+    // Updating record
     public function update(Request $request, TeamProfile $profile)
     {
         $data = $request->validate([
@@ -45,6 +50,7 @@ class TeamProfileController extends Controller
             'photo'       => 'nullable|image|max:5120',
         ]);
 
+        // if photo selected, replace existing one and clean up storage
         if ($request->hasFile('photo')) {
             if ($profile->photo) {
                 Storage::disk('public')->delete($profile->photo);
@@ -57,8 +63,10 @@ class TeamProfileController extends Controller
         return redirect()->route('team')->with('success', 'Team member updated.');
     }
 
+    // Deleting record
     public function destroy(TeamProfile $profile)
     {
+        // Storage clean up
         if ($profile->photo) {
             Storage::disk('public')->delete($profile->photo);
         }

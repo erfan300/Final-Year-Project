@@ -4,12 +4,15 @@
 
 @php
   function linkify($text) {
+    <!-- Escaping text for safety -->
     $escaped = e($text); 
+    <!-- Turning URLs into clickable links -->
     $linked = preg_replace(
       '~(https?://[^\s<]+)~i',
       '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>',
       $escaped
     );
+    <!-- Keeping line breaks -->
     return nl2br($linked);
   }
 @endphp
@@ -37,6 +40,7 @@
           <article class="update-item">
             <div class="update-meta">
               Posted {{ $u->created_at->format('d M Y - H:i') }}
+              <!-- Edited only displayed if updated after creation -->
               @if($u->updated_at && $u->updated_at->gt($u->created_at))
                 • Edited {{ $u->updated_at->format('d M Y - H:i') }}
               @endif
@@ -51,6 +55,7 @@
             @endif
 
             <div class="update-body prose">
+              <!-- Body displayed safely, keeping line breaks and making URLs within body clickable -->
               {!! linkify($u->body) !!}
             </div>
 
@@ -59,6 +64,7 @@
                 <a href="{{ route('updates.edit', $u->id) }}" class="admin-login-btn">Edit</a>
 
                 <form method="POST" action="{{ route('updates.destroy', $u->id) }}">
+                  <!-- CSRF protection -->
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="admin-login-btn">Delete</button>

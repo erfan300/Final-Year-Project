@@ -9,22 +9,28 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
+    // Displaying create form
     public function create()
     {
         return view('admin.media.form', ['post' => null]);
     }
 
+    // Storing new record
     public function store(Request $request)
     {
+        // Validating inputs
         $data = $request->validate([
             'title' => 'nullable|string|max:255',
             'caption' => 'nullable|string|max:5000',
             'event_name' => 'nullable|string|max:255',
+            // sensible date - within the last 10 years to current date
             'event_date' => 'nullable|date|after_or_equal:'.now()->subYears(10)->toDateString().'|before_or_equal:today',
             'files' => 'required|array|min:1',
+            // fixed file types and size for performance & security
             'files.*' => 'mimetypes:image/jpeg,image/png,image/webp,video/mp4,video/webm|max:20480',
         ]);
-
+        
+        // Creating record
         $post = MediaPost::create([
             'title' => $data['title'] ?? null,
             'caption' => $data['caption'] ?? null,
@@ -32,6 +38,7 @@ class MediaController extends Controller
             'event_date' => $data['event_date'] ?? null,
         ]);
 
+        // Store each uploaded file and create a mediaItemp row for each file
         foreach ($request->file('files') as $i => $file) {
             $path = $file->store('media', 'public');
 
@@ -45,12 +52,14 @@ class MediaController extends Controller
         return redirect()->route('media')->with('success', 'Media post created.');
     }
 
+    // Displaying edit form
     public function edit(MediaPost $post)
     {
         $post->load('items');
         return view('admin.media.form', compact('post'));
     }
 
+    // Updating record and optionally deleting and adding new items
     public function update(Request $request, MediaPost $post)
     {
         $data = $request->validate([
@@ -71,6 +80,7 @@ class MediaController extends Controller
             'event_date' => $data['event_date'] ?? null,
         ]);
 
+        // if items selected for removal, delete DB rows and files from storage
         if (!empty($data['remove_items'])) {
             $items = $post->items()->whereIn('id', $data['remove_items'])->get();
 
@@ -82,6 +92,7 @@ class MediaController extends Controller
             }
         }
 
+        // If new files are selected, append them to existing ones
         if ($request->hasFile('files')) {
             $currentMax = (int) $post->items()->max('sort_order');
 
@@ -99,18 +110,18 @@ class MediaController extends Controller
         return redirect()->route('media')->with('success', 'Media post updated.');
     }
 
+    // Deleting record
     public function destroy(MediaPost $post)
     {
         $post->load('items');
 
+        // Storage clean up
         foreach ($post->items as $item) {
             if ($item->file_path && Storage::disk('public')->exists($item->file_path)) {
                 Storage::disk('public')->delete($item->file_path);
             }
         }
-
         $post->delete();
-
         return redirect()->route('media')->with('success', 'Media post deleted.');
     }
 }

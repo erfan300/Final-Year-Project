@@ -18,10 +18,12 @@
     <h2>About Us</h2>
 
     <div class="prose">
+      <!-- Ensuring content is displayed safely and keeping line breaks  -->
       {!! nl2br(e($intro->content ?? '')) !!}
     </div>
 
     @if(session()->has('admin_id'))
+    <!-- Securing admin only controls -->
       <div class="admin-controls">
         <a href="{{ route('content.edit', $intro->id) }}" class="btn btn-small">Edit</a>
       </div>

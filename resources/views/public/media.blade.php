@@ -1,3 +1,4 @@
+<!-- Used to detect file extensions -->
 @php use Illuminate\Support\Str; @endphp
 
 @extends('layouts.app')
@@ -6,12 +7,15 @@
 
 @php
   function linkifyMedia($text) {
-    $escaped = e($text);
+    <!-- Escaping text for safety -->
+    $escaped = e($text); 
+    <!-- Turning URLs into clickable links -->
     $linked = preg_replace(
       '~(https?://[^\s<]+)~i',
       '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>',
       $escaped
     );
+    <!-- Keep line breaks -->
     return nl2br($linked);
   }
 @endphp
@@ -27,6 +31,7 @@
 
   <div class="section">
     @if(session()->has('admin_id'))
+      <!-- Securing admin only controls -->
       <div class="admin-controls">
         <a href="{{ route('media.create') }}" class="btn btn-small">Add Media Post</a>
       </div>
@@ -40,6 +45,7 @@
             <div class="media-meta">
               Posted {{ $post->created_at->format('d M Y - H:i') }}
               @if($post->updated_at && $post->updated_at->gt($post->created_at))
+              <!-- Displayes Edited only if the post was updated -->
                 · Edited {{ $post->updated_at->format('d M Y - H:i') }}
               @endif
               @if($post->event_name)
@@ -47,6 +53,7 @@
               @endif
 
               @if($post->event_date)
+              <!-- Formatting stored date into a readable format -->
                 · <strong class="media-meta-highlight">{{ \Carbon\Carbon::parse($post->event_date)->format('d M Y') }}</strong>
               @endif
             </div>
@@ -58,6 +65,7 @@
             <div class="media-grid">
               @foreach($post->items as $img)
                 <div class="media-img">
+                  <!-- Redering images and videos differently to address placeholder issue -->
                   @if(Str::endsWith($img->file_path, ['.mp4', '.webm']))
                     <video controls preload="metadata">
                       <source src="{{ asset('storage/'.$img->file_path) }}">
@@ -72,6 +80,7 @@
 
             @if($post->caption)
               <p class="prose media-caption">
+                <!-- Displaying caption safely, keeping line breaks and making links within captions clickable -->
                 {!! linkifyMedia($post->caption) !!}
               </p>
             @endif
@@ -81,6 +90,7 @@
                 <a href="{{ route('media.edit', $post->id) }}" class="admin-login-btn">Edit</a>
 
                 <form method="POST" action="{{ route('media.destroy', $post->id) }}">
+                  <!-- CSRF protection -->
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="admin-login-btn">Delete</button>

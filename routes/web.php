@@ -16,6 +16,7 @@ use App\Http\Controllers\{
     CarBuildController
 };
 
+// Admin authentication routes (Login | submit | logout)
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])
     ->name('admin.login');
 
@@ -25,8 +26,8 @@ Route::post('/admin/login', [AdminAuthController::class, 'login'])
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])
     ->name('admin.logout');
 
+// Protected admin routes via middleware
 Route::prefix('admin')->middleware('admin.auth')->group(function () {
-
     // Content section
     Route::get('/content/{id}/edit', [ContentSectionController::class, 'edit'])->name('content.edit');
     Route::put('/content/{id}', [ContentSectionController::class, 'update'])->name('content.update');
@@ -77,31 +78,25 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
 
 });
 
+// Public pages (Users)
 Route::get('/', [PublicController::class, 'home'])->name('home');
-
 Route::get('/recruitment', [PublicController::class, 'recruitment'])->name('recruitment');
-
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
-
 Route::get('/sponsors', [PublicController::class, 'sponsors'])->name('sponsors');
-
 Route::get('/updates', [PublicController::class, 'updates'])->name('updates');
-
 Route::get('/team', [PublicController::class, 'team'])->name('team');
-
 Route::get('/technical-specs', [PublicController::class, 'specs'])->name('specs');
-
 Route::get('/media', [PublicController::class, 'media'])->name('media');
 
+// Public user form submissions
 Route::post('/recruitment/submit', [RecruitmentSubmissionController::class, 'store'])
     ->name('recruitment.submit');
-
 Route::post('/sponsorship/submit', [SponsorshipSubmissionController::class, 'store'])
     ->name('sponsorship.submit');
-
 Route::post('/contact/submit', [GeneralEnquiryController::class, 'store'])
     ->name('contact.submit');
 
+// Fallback route for non-existent URLs (404)
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });

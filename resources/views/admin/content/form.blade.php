@@ -20,10 +20,8 @@
 
   <div class="section">
 
-    <form
-      method="POST"
-      action="{{ $content ? route('content.update', $content->id) : route('content.store') }}"
-    >
+    <form method="POST" action="{{ $content ? route('content.update', $content->id) : route('content.store') }}">
+      <!-- CSRF protection -->
       @csrf
       @if($content)
         @method('PUT')
@@ -32,6 +30,7 @@
       <input type="hidden" name="section_key" value="{{ $section_key }}">
 
       <h2>Content</h2>
+      <!-- Uses char-counter which is driven through JS via the use of field id + "-count" -->
       <textarea id="content" name="content" rows="12" maxlength="2000" required placeholder="Enter the content for this section...">{{ old('content', $content->content ?? '') }}</textarea>
       <small class="char-counter">
         <span id="content-count">0</span>/2000 characters

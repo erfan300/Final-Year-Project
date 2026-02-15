@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Legacy table from early design - car builds is used instead as a replacement
 return new class extends Migration
 {
     /**

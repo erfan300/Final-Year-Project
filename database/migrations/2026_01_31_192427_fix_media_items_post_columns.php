@@ -9,12 +9,14 @@ return new class extends Migration {
     {
         Schema::table('media_items', function (Blueprint $table) {
             if (!Schema::hasColumn('media_items', 'media_post_id')) {
-                $table->foreignId('media_post_id')
+            // Links each media item to a media post, if deleted, the item is kept with FK set to null    
+            $table->foreignId('media_post_id')
                     ->nullable()
                     ->constrained('media_posts')
                     ->nullOnDelete();
             }
 
+            // Media ordering preservation
             if (!Schema::hasColumn('media_items', 'sort_order')) {
                 $table->unsignedInteger('sort_order')->default(0);
             }

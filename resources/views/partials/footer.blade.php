@@ -4,6 +4,7 @@
     <div>
       <div class="footer-title">Aston Formula Student</div>
 
+      <!-- When on FAQ page - the FAQ link at footer should not be present (redundancy) -->
       @if(Route::currentRouteName() !== 'faq')
         <ul class="footer-links">
           <li><a href="{{ route('faq') }}">Frequently Asked Questions</a></li>

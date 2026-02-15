@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('role');
-            $table->string('photo')->nullable();
-            $table->text('bio')->nullable();
-            $table->text('testimonial')->nullable();
+            $table->string('photo');
+            $table->text('bio')->nullable(); // Optional
+            $table->text('testimonial')->nullable(); // Optional
             $table->timestamps();
         });
     }

@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 
 class SponsorshipSubmissionController extends Controller
 {
+    // Storing record
     public function store(Request $request)
     {
+        // Validating inputs
         $request->validate([
             'company_name' => ['required', 'string' , 'max:255', new NoProfanity],
             'contact_person' => ['required', 'string' , 'max:255', new NoProfanity],
@@ -18,6 +20,7 @@ class SponsorshipSubmissionController extends Controller
             'message'       => ['nullable', 'string', 'max:2000', new NoProfanity],
         ]);
 
+        // Creating record
         SponsorshipSubmission::create($request->only([
             'company_name','contact_person','email','phone','message'
         ]));
