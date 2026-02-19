@@ -7,15 +7,12 @@
 
 @php
   function linkifyMedia($text) {
-    <!-- Escaping text for safety -->
     $escaped = e($text); 
-    <!-- Turning URLs into clickable links -->
     $linked = preg_replace(
       '~(https?://[^\s<]+)~i',
       '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>',
       $escaped
     );
-    <!-- Keep line breaks -->
     return nl2br($linked);
   }
 @endphp
