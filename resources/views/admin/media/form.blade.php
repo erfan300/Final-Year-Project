@@ -45,7 +45,6 @@
           <div class="media-grid">
             @foreach($post->items as $item)
               @php
-                <!-- Determining whether the file should be rednered as a video based on its extension -->
                 $path = $item->file_path;
                 $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
                 $isVideo = in_array($ext, ['mp4','webm','ogg','mov']);
