@@ -35,7 +35,7 @@
               <form method="POST" action="{{ route('faqs.destroy', $item->id) }}">
                 <!-- CSRF protection -->
                 @csrf
-                <!-- Communicating with laravel this form should delete the given record -->
+                <!-- Communicating with laravel that this form should delete the given record -->
                 @method('DELETE')
                 <button type="submit" class="admin-login-btn">Delete</button>
               </form>

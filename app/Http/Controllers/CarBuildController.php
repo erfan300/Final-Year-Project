@@ -47,7 +47,7 @@ class CarBuildController extends Controller
         return redirect()->route('specs')->with('success', 'Build created.');
     }
 
-    // Dispalying edit form with existing record
+    // Displaying edit form with existing record
     public function edit(CarBuild $build)
     {
         return view('admin.builds.form', compact('build'));

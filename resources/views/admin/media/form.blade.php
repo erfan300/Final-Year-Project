@@ -35,7 +35,7 @@
         </span>
       </label>
 
-      <!-- Client-side bounds (min/max) in additions to server validation enforcement -->
+      <!-- Client-side bounds (min/max) in addition to server validation enforcement -->
       <input id="date" type="date" name="event_date" value="{{ old('event_date', $post->event_date ?? '') }}" max="{{ now()->toDateString() }}" min="{{ now()->subYears(10)->toDateString() }}">
 
       @if($post && $post->items->count())

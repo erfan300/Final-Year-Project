@@ -28,7 +28,7 @@ class UpdateController extends Controller
         $update->title = $data['title'];
         $update->body = $data['body'];
 
-        // Storing the optional image and save its path
+        // Storing the optional image and saving its path
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('updates', 'public');
             $update->image_path = $path;
@@ -39,7 +39,7 @@ class UpdateController extends Controller
         return redirect()->route('updates')->with('success', 'Update added successfully');
     }
 
-    // Displayin edit form
+    // Displaying edit form
     public function edit($id)
     {
         $update = Update::findOrFail($id);

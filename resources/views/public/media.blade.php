@@ -1,5 +1,8 @@
 <!-- Used to detect file extensions -->
-@php use Illuminate\Support\Str; @endphp
+@php 
+  use Illuminate\Support\Str; 
+  use Carbon\Carbon;
+@endphp
 
 @extends('layouts.app')
 @section('title','Media')
@@ -45,7 +48,7 @@
             <div class="media-meta">
               Posted {{ $post->created_at->format('d M Y - H:i') }}
               @if($post->updated_at && $post->updated_at->gt($post->created_at))
-              <!-- Displayes Edited only if the post was updated -->
+              <!-- Displays Edited only if the post was updated -->
                 · Edited {{ $post->updated_at->format('d M Y - H:i') }}
               @endif
               @if($post->event_name)
@@ -54,7 +57,7 @@
 
               @if($post->event_date)
               <!-- Formatting stored date into a readable format -->
-                · <strong class="media-meta-highlight">{{ \Carbon\Carbon::parse($post->event_date)->format('d M Y') }}</strong>
+                · <strong class="media-meta-highlight">{{ Carbon::parse($post->event_date)->format('d M Y') }}</strong>
               @endif
             </div>
 
@@ -65,7 +68,7 @@
             <div class="media-grid">
               @foreach($post->items as $img)
                 <div class="media-img">
-                  <!-- Redering images and videos differently to address placeholder issue -->
+                  <!-- Rendering images and videos differently to address placeholder issue -->
                   @if(Str::endsWith($img->file_path, ['.mp4', '.webm']))
                     <video controls preload="metadata">
                       <source src="{{ asset('storage/'.$img->file_path) }}">

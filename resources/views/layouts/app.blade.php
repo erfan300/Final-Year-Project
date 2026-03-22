@@ -52,7 +52,7 @@
 </script>
 
 <script>
-// Automatically updating character counters for fields with a maxlenght and matching <id>-count
+// Automatically updating character counters for fields with a maxlength and matching <id>-count
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[maxlength]').forEach(field => {
     const max = field.getAttribute('maxlength');

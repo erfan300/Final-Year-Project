@@ -38,7 +38,7 @@ class MediaController extends Controller
             'event_date' => $data['event_date'] ?? null,
         ]);
 
-        // Store each uploaded file and create a mediaItemp row for each file
+        // Store each uploaded file and create a mediaItem row for each file
         foreach ($request->file('files') as $i => $file) {
             $path = $file->store('media', 'public');
 
