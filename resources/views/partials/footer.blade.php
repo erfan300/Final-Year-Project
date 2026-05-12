@@ -20,7 +20,7 @@
       <div class="footer-title">University Contact</div>
       <ul class="footer-list">
         <li>Address: Aston St, Birmingham B4 7ET</li>
-        <li>Email: hello@aston.ac.uk</li>
+        <li>Email: formulastudent@aston.ac.uk</li>
         <li>Phone: 0121 204 3000</li>
       </ul>
     </div>
